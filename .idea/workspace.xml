@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="Add get_weather API function">
+    <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="Update location_handler with F.location magic filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kysiolena&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kysiolena/WeatherBot.git&quot;,
+    &quot;accountId&quot;: &quot;26af3c3a-7656-4c74-9a7a-1fb89acff079&quot;
+  }
+}</component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
@@ -42,6 +54,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.handlers.executor": "Run",
     "Python.main.executor": "Run",
     "Python.vimeo-downloader.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -49,7 +62,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "D:/GitHub_kysiolena/_python/WeatherBot",
@@ -84,7 +97,8 @@
       <option name="presentableId" value="Default" />
       <updated>1761821622037</updated>
       <workItem from="1761821623149" duration="11739000" />
-      <workItem from="1762184977649" duration="12173000" />
+      <workItem from="1762184977649" duration="12430000" />
+      <workItem from="1762877059682" duration="939000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <option name="closed" value="true" />
@@ -150,7 +164,31 @@
       <option name="project" value="LOCAL" />
       <updated>1762197181534</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add get_weather API function">
+      <option name="closed" value="true" />
+      <created>1762197283823</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1762197283823</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update location_handler with F.location magic filter">
+      <option name="closed" value="true" />
+      <created>1762878413958</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1762878413958</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update location_handler with F.location magic filter">
+      <option name="closed" value="true" />
+      <created>1762878458585</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1762878458585</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,10 +211,12 @@
     <MESSAGE value="Add .env.example" />
     <MESSAGE value="Refactoring a files structure" />
     <MESSAGE value="Add get_weather API function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add get_weather API function" />
+    <MESSAGE value="Update location_handler with F.location magic filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update location_handler with F.location magic filter" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1762196573941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1762877200375" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$handlers.coverage" NAME="handlers Coverage Results" MODIFIED="1762877188013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$vimeo_downloader.coverage" NAME="vimeo-downloader Coverage Results" MODIFIED="1761831923748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

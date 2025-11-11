@@ -1,3 +1,4 @@
+from aiogram import F
 from aiogram import html, Router
 from aiogram.filters import CommandStart
 from aiogram.types import Message
@@ -27,15 +28,8 @@ async def command_start_handler(message: Message) -> None:
     )
 
 
-@router.message()
+@router.message(F.location)
 async def location_handler(message: Message) -> None:
-    l = message.location
+    weather = get_weather(lat=message.location.latitude, lon=message.location.longitude)
 
-    if l:
-        weather = get_weather(
-            lat=message.location.latitude, lon=message.location.longitude
-        )
-
-        await message.reply(text=html.code(weather))
-    else:
-        await message.reply(text="It's not location. Please try again.")
+    await message.reply(text=html.code(weather))
