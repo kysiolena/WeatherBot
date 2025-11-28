@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="Customize info message with weather data">
+    <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="Add WeatherService">
+      <change afterPath="$PROJECT_DIR$/app/services.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +58,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.WeatherBot.executor": "Run",
+    "Python.api.executor": "Run",
+    "Python.dot_env.executor": "Run",
     "Python.handlers.executor": "Run",
     "Python.main.executor": "Run",
     "Python.vimeo-downloader.executor": "Run",
@@ -71,7 +78,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "actions.on.save",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -80,6 +87,36 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub_kysiolena\_python\WeatherBot" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="WeatherBot" />
+      <option name="ENV_FILES" value="$PROJECT_DIR$/.env" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -98,7 +135,15 @@
       <updated>1761821622037</updated>
       <workItem from="1761821623149" duration="11739000" />
       <workItem from="1762184977649" duration="12430000" />
-      <workItem from="1762877059682" duration="6588000" />
+      <workItem from="1762877059682" duration="6647000" />
+      <workItem from="1762955867770" duration="543000" />
+      <workItem from="1762958972039" duration="236000" />
+      <workItem from="1763136689120" duration="103000" />
+      <workItem from="1764340091125" duration="2287000" />
+      <workItem from="1764342551706" duration="265000" />
+      <workItem from="1764342843861" duration="336000" />
+      <workItem from="1764343203012" duration="590000" />
+      <workItem from="1764343809030" duration="7261000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <option name="closed" value="true" />
@@ -204,7 +249,47 @@
       <option name="project" value="LOCAL" />
       <updated>1762882771136</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Add README.md">
+      <option name="closed" value="true" />
+      <created>1762884217299</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1762884217299</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add WeatherService">
+      <option name="closed" value="true" />
+      <created>1764350861529</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1764350861529</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add WeatherService">
+      <option name="closed" value="true" />
+      <created>1764350897602</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764350897602</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Add WeatherService">
+      <option name="closed" value="true" />
+      <created>1764350946674</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764350946674</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Add WeatherService">
+      <option name="closed" value="true" />
+      <created>1764351012237</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1764351012237</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,11 +314,15 @@
     <MESSAGE value="Add get_weather API function" />
     <MESSAGE value="Update location_handler with F.location magic filter" />
     <MESSAGE value="Customize info message with weather data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Customize info message with weather data" />
+    <MESSAGE value="Add README.md" />
+    <MESSAGE value="Add WeatherService" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add WeatherService" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1762882582315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764350565034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WeatherBot$handlers.coverage" NAME="handlers Coverage Results" MODIFIED="1762877188013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
+    <SUITE FILE_PATH="coverage/WeatherBot$api.coverage" NAME="api Coverage Results" MODIFIED="1764345171410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$vimeo_downloader.coverage" NAME="vimeo-downloader Coverage Results" MODIFIED="1761831923748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$WeatherBot.coverage" NAME="WeatherBot Coverage Results" MODIFIED="1764344547524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

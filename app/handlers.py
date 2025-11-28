@@ -4,7 +4,7 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 import app.keyboards as kb
-from app.api import get_weather
+from app.services import WeatherService
 
 router = Router()
 
@@ -34,27 +34,20 @@ async def command_start_handler(message: Message) -> None:
 
 @router.message(F.location)
 async def location_handler(message: Message) -> None:
-    data = get_weather(lat=message.location.latitude, lon=message.location.longitude)
-    weather = data["weather"][0]
-    main = data["main"]
-    wind = data["wind"]
+    w_s = WeatherService()
 
-    description = f"_Weather:_ *{weather["description"].capitalize()}*"
-    temperature = f"_Temperature:_ *{main["temp"]} °C*"
-    feels_like = f"_Feels like:_ *{main["feels_like"]} °C*"
-    pressure = f"_Pressure:_ *{main["pressure"]} hPa*"
-    humidity = f"_Humidity:_ *{main["humidity"]} %*"
-    wind_speed = f"_Wind:_ *{wind["speed"]} m/s*"
-
-    text = "\n\n".join(
-        [description, temperature, feels_like, pressure, humidity, wind_speed]
+    weather = w_s.get_weather(
+        lon=message.location.longitude, lat=message.location.latitude
     )
 
-    icon = "https://openweathermap.org/img/wn/{0}@2x.png"
-
     await message.reply_photo(
-        photo=icon.format(weather["icon"]),
-        caption=text,
+        photo=weather.photo,
+        caption=weather.text,
         parse_mode="Markdown",
         reply_markup=kb.main,
     )
+
+
+@router.message(F.text)
+async def message_handler(message: Message) -> None:
+    print(message.text)
