@@ -8,6 +8,9 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
 from app.handlers import router
+from app.services import DBService
+
+db_s = DBService()
 
 
 async def main() -> None:

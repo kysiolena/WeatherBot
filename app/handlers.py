@@ -5,8 +5,27 @@ from aiogram.types import Message
 
 import app.keyboards as kb
 from app.services import WeatherService
+from app.settings import db_s
 
 router = Router()
+
+
+@router.startup()
+async def startup_handler():
+    await db_s.connect()
+    await db_s.setup()
+
+
+@router.shutdown()
+async def shutdown_handler():
+    await db_s.close()
+
+
+def get_hello_text(message: Message):
+    return (
+        f"Hello, {html.bold(message.from_user.full_name)}!\n\n"
+        f"🗺 Send the location where you want to know the weather. "
+    )
 
 
 @router.message(CommandStart())
@@ -14,22 +33,15 @@ async def command_start_handler(message: Message) -> None:
     """
     This handler receives messages with `/start` command
     """
-    # Most event objects have aliases for API methods that can be called in events' context
-    # For example if you want to answer to incoming message you can use `message.answer(...)` alias
-    # and the target chat will be passed to :ref:`aiogram.methods.send_message.SendMessage`
-    # method automatically or call API method directly via
-    # Bot instance: `bot.send_message(chat_id=message.chat.id, ...)`
-    text = (
-        f"Hello, {html.bold(message.from_user.full_name)}!\n\n"
-        f"🗺 Send the location where you want to know the weather. "
-        f"Or click the Register button 👇 to start register process. "
-        f"Once registered, you'll be able to save your favorite locations and quickly check the weather there ☺️"
-    )
 
-    await message.answer(
-        text=text,
-        reply_markup=kb.main,
-    )
+    user = await db_s.get_user(message.from_user.id)
+
+    if user:
+        await message.answer(text=get_hello_text(message), reply_markup=kb.main)
+    else:
+        await message.answer(
+            text="Please share your phone number to continue.", reply_markup=kb.phone
+        )
 
 
 @router.message(F.location)
@@ -48,6 +60,14 @@ async def location_handler(message: Message) -> None:
     )
 
 
-@router.message(F.text)
-async def message_handler(message: Message) -> None:
-    print(message.text)
+@router.message(F.contact)
+async def phone_handler(message: Message) -> None:
+    tg_id = message.from_user.id
+    phone = message.contact.phone_number
+
+    await db_s.create_user(tg_id, phone)
+
+    await message.answer(
+        text=get_hello_text(message),
+        reply_markup=kb.main,
+    )
