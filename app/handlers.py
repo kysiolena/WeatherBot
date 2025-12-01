@@ -1,6 +1,8 @@
 from aiogram import F
 from aiogram import Router
 from aiogram.filters import CommandStart
+from aiogram.fsm.context import FSMContext
+from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message, CallbackQuery
 
 import app.keyboards as kb
@@ -9,7 +11,14 @@ from app.messages import Messages
 from app.services import WeatherService
 from app.settings import db_s
 
+# Router
 router = Router()
+
+
+# State for Place Edit
+class PlaceEdit(StatesGroup):
+    id = State()
+    name = State()
 
 
 @router.startup()
@@ -145,3 +154,38 @@ async def favorite_palace_delete_handler(callback: CallbackQuery) -> None:
     await callback.message.edit_reply_markup(
         reply_markup=kb.location(place_id=None),
     )
+
+
+@router.callback_query(F.data.startswith(Callbacks.FAVORITE_PLACE_RENAME))
+async def favorite_palace_rename_first_handler(
+        callback: CallbackQuery, state: FSMContext
+) -> None:
+    place_id = int(callback.data.split("?")[1])
+
+    # 1. Set current State
+    await state.set_state(PlaceEdit.id)
+    # Set Place ID to State
+    await state.update_data(id=place_id)
+
+    # 2. Update current State
+    await state.set_state(PlaceEdit.name)
+
+    await callback.message.answer(
+        text=Messages.FAVORITE_PLACES_RENAME_ENTER_NAME, reply_markup=kb.main
+    )
+
+
+@router.message(PlaceEdit.name)
+async def favorite_palace_rename_second_handler(
+        message: Message, state: FSMContext
+) -> None:
+    # Set Place Name to State
+    await state.update_data(name=message.text)
+
+    # Get stored data
+    data = await state.get_data()
+
+    # Rename Place
+    await db_s.update_place(place_id=data["id"], name=data["name"])
+
+    await message.answer(Messages.FAVORITE_PLACES_RENAME_SUCCESS, reply_markup=kb.main)

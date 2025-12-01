@@ -165,6 +165,14 @@ class DBService:
 
         return place_id
 
+    async def update_place(self, name: str, place_id: int):
+        await self._cursor.execute(
+            "UPDATE places SET name = (?) WHERE id = (?)",
+            (name, place_id),
+        )
+
+        await self._connection.commit()
+
     async def delete_place(self, place_id: int):
         await self._cursor.execute("DELETE FROM places WHERE id = (?)", (place_id,))
         await self._connection.commit()

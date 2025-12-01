@@ -22,6 +22,7 @@ class Messages:
     )
     FAVORITE_PLACES_RENAME_BUTTON = "✏️ Rename Favorite Place"
     FAVORITE_PLACES_RENAME_SUCCESS = "Favorite place was successfully renamed!"
+    FAVORITE_PLACES_RENAME_ENTER_NAME = "Please enter new name for this favorite place"
 
     @staticmethod
     def get_hello_text(message: Message) -> str:
