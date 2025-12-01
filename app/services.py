@@ -4,17 +4,24 @@ from collections import namedtuple
 import aiosqlite
 import requests
 
+from app.messages import Messages
+
 Weather = namedtuple("Weather", ["text", "photo"])
 
 
 class WeatherService:
+    """
+    Weather Service
+    """
+
     _API_URL = "https://api.openweathermap.org/data/2.5/weather"
+    _API_KEY = os.getenv("OPENWEATHERMAP_API_KEY")
 
     def _get_weather_by_coordinates(self, lat: float, lon: float) -> dict:
         params = {
             "lat": lat,
             "lon": lon,
-            "appid": os.getenv("OPENWEATHERMAP_API_KEY"),
+            "appid": self._API_KEY,
             "units": "metric",
         }
 
@@ -25,7 +32,7 @@ class WeatherService:
     def _get_weather_by_city(self, city: str) -> dict:
         params = {
             "city": city,
-            "appid": os.getenv("OPENWEATHERMAP_API_KEY"),
+            "appid": self._API_KEY,
             "units": "metric",
         }
 
@@ -41,25 +48,6 @@ class WeatherService:
 
         return icon_url
 
-    @staticmethod
-    def get_markdown_text(data: dict) -> str:
-        weather: dict = data["weather"][0]
-        main: dict = data["main"]
-        wind: dict = data["wind"]
-
-        description = f"_Weather:_ *{weather["description"].capitalize()}*"
-        temperature = f"_Temperature:_ *{main["temp"]} °C*"
-        feels_like = f"_Feels like:_ *{main["feels_like"]} °C*"
-        pressure = f"_Pressure:_ *{main["pressure"]} hPa*"
-        humidity = f"_Humidity:_ *{main["humidity"]} %*"
-        wind_speed = f"_Wind:_ *{wind["speed"]} m/s*"
-
-        text = "\n\n".join(
-            [description, temperature, feels_like, pressure, humidity, wind_speed]
-        )
-
-        return text
-
     def get_weather(
             self,
             lat: float | None = None,
@@ -71,10 +59,28 @@ class WeatherService:
         else:
             data = self._get_weather_by_coordinates(lat, lon)
 
-        return Weather(self.get_markdown_text(data), self.get_icon_url(data))
+        weather: dict = data["weather"][0]
+        main: dict = data["main"]
+        wind: dict = data["wind"]
+
+        return Weather(
+            Messages.get_markdown_weather_text(
+                description=weather["description"],
+                temperature=main["temp"],
+                feels_like=main["feels_like"],
+                pressure=main["pressure"],
+                humidity=main["humidity"],
+                wind_speed=wind["speed"],
+            ),
+            self.get_icon_url(data),
+        )
 
 
 class DBService:
+    """
+    Database Service
+    """
+
     _connection: aiosqlite.Connection | None = None
     _cursor: aiosqlite.Cursor | None = None
 
@@ -94,8 +100,8 @@ class DBService:
             "name TEXT,"
             "lat REAL,"
             "long REAL,"
-            "user_id REAL,"
-            "FOREIGN KEY (user_ID) REFERENCES users(id)"
+            "user_id INTEGER,"
+            "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
             ")"
         )
 
