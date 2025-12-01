@@ -11,4 +11,5 @@ Find the answer here 😉
 2. [x] Location Handler
 3. [x] Create and Delete User Handlers
 4. [ ] Favorite Locations (CRUD)
-5. [ ] Tests
+5. [ ] Middleware for checking User Authentication
+6. [ ] Tests

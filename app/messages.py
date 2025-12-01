@@ -13,6 +13,15 @@ class Messages:
 
     FAVORITE_PLACES_SEE_BUTTON = "🧡 See Favorite Places"
     FAVORITE_PLACES_ADD_BUTTON = "➕ Add to Favorite Places"
+    FAVORITE_PLACES_ADD_SUCCESS = (
+        "Place was successfully added to your favorite places!"
+    )
+    FAVORITE_PLACES_DELETE_BUTTON = "❌ Delete from Favorite Places"
+    FAVORITE_PLACES_DELETE_SUCCESS = (
+        "Place was successfully deleted from your favorite places!"
+    )
+    FAVORITE_PLACES_RENAME_BUTTON = "✏️ Rename Favorite Place"
+    FAVORITE_PLACES_RENAME_SUCCESS = "Favorite place was successfully renamed!"
 
     @staticmethod
     def get_hello_text(message: Message) -> str:
