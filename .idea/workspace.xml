@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="Add create and delete place handlers">
+    <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="Add rename place handlers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/handlers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/keyboards.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/keyboards.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/messages.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services.py" afterDir="false" />
     </list>
@@ -145,7 +146,7 @@
       <workItem from="1764343203012" duration="590000" />
       <workItem from="1764343809030" duration="18074000" />
       <workItem from="1764571562478" duration="13715000" />
-      <workItem from="1764594268203" duration="8367000" />
+      <workItem from="1764594268203" duration="14122000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <option name="closed" value="true" />
@@ -339,7 +340,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764601280545</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Add rename place handlers">
+      <option name="closed" value="true" />
+      <created>1764602982315</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1764602982315</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Add rename place handlers">
+      <option name="closed" value="true" />
+      <created>1764603016488</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1764603016488</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,11 +388,12 @@
     <MESSAGE value="Add messages.py module" />
     <MESSAGE value="Add delete user handler" />
     <MESSAGE value="Add create and delete place handlers" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add create and delete place handlers" />
+    <MESSAGE value="Add rename place handlers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add rename place handlers" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/WeatherBot$settings.coverage" NAME="settings Coverage Results" MODIFIED="1764360619307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764600516201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764608202162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WeatherBot$handlers.coverage" NAME="handlers Coverage Results" MODIFIED="1762877188013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$api.coverage" NAME="api Coverage Results" MODIFIED="1764345171410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$vimeo_downloader.coverage" NAME="vimeo-downloader Coverage Results" MODIFIED="1761831923748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

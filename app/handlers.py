@@ -21,6 +21,11 @@ class PlaceEdit(StatesGroup):
     name = State()
 
 
+# State for Places List
+class PlacesList(StatesGroup):
+    name = State()
+
+
 @router.startup()
 async def startup_handler() -> None:
     """
@@ -100,8 +105,6 @@ async def location_handler(message: Message) -> None:
     tg_id = message.from_user.id
     lat = message.location.latitude
     lon = message.location.longitude
-
-    print(tg_id, message)
 
     # Create instance
     w_s = WeatherService()
@@ -185,7 +188,53 @@ async def favorite_palace_rename_second_handler(
     # Get stored data
     data = await state.get_data()
 
+    await state.clear()
+
     # Rename Place
     await db_s.update_place(place_id=data["id"], name=data["name"])
 
     await message.answer(Messages.FAVORITE_PLACES_RENAME_SUCCESS, reply_markup=kb.main)
+
+
+@router.message(F.text == Messages.FAVORITE_PLACES_SEE_BUTTON)
+async def favorite_palace_see_handler(message: Message, state: FSMContext) -> None:
+    tg_id = message.from_user.id
+
+    places = await db_s.get_user_places(user_id=tg_id)
+
+    await state.set_state(PlacesList.name)
+
+    await message.answer(
+        Messages.FAVORITE_PLACES_SELECT, reply_markup=kb.places(places=places)
+    )
+
+
+@router.message(PlacesList.name, F.text != Messages.BACK_TO_MAIN_MENU_BUTTON)
+async def favorite_place_select_handler(message: Message, state: FSMContext) -> None:
+    # Get Place
+    place = await db_s.get_place_by_name(
+        name=message.text, user_id=message.from_user.id
+    )
+
+    place_id, name, lat, lon, *rest = place
+
+    # Create instance
+    w_s = WeatherService()
+
+    # Get weather description
+    weather = w_s.get_weather(lon=lon, lat=lat)
+
+    # Reply
+    await message.reply_photo(
+        photo=weather.photo,
+        caption=weather.text,
+        parse_mode="Markdown",
+        reply_markup=kb.location(lat=lat, lon=lon, place_id=place_id),
+    )
+
+
+@router.message(F.text == Messages.BACK_TO_MAIN_MENU_BUTTON)
+async def back_to_main_menu_handler(message: Message, state: FSMContext) -> None:
+    await state.clear()
+
+    await message.answer(Messages.LOCATION_SEND, reply_markup=kb.main)

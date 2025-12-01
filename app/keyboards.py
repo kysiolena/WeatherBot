@@ -4,7 +4,7 @@ from aiogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
 )
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.utils.keyboard import InlineKeyboardBuilder, ReplyKeyboardBuilder
 
 from app.callbacks import Callbacks
 from app.messages import Messages
@@ -34,18 +34,6 @@ phone = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True,
 )
-
-
-# location = InlineKeyboardMarkup(
-#     inline_keyboard=[
-#         [
-#             InlineKeyboardButton(
-#                 text=Messages.FAVORITE_PLACES_ADD_BUTTON,
-#                 callback_data=Callbacks.FAVORITE_PLACE_ADD,
-#             )
-#         ]
-#     ],
-# )
 
 
 def location(
@@ -78,3 +66,24 @@ def location(
         )
 
     return kb.adjust(1).as_markup()
+
+
+def places(
+        places: list,
+) -> ReplyKeyboardMarkup:
+    kb = ReplyKeyboardBuilder()
+
+    for place in places:
+        kb.add(
+            KeyboardButton(
+                text=place[1],
+            )
+        )
+
+    kb.add(
+        KeyboardButton(
+            text=Messages.BACK_TO_MAIN_MENU_BUTTON,
+        )
+    )
+
+    return kb.adjust(2).as_markup(resize_keyboard=True)

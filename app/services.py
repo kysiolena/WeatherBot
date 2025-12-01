@@ -59,6 +59,8 @@ class WeatherService:
         else:
             data = self._get_weather_by_coordinates(lat, lon)
 
+        print(data)
+
         weather: dict = data["weather"][0]
         main: dict = data["main"]
         wind: dict = data["wind"]
@@ -116,6 +118,7 @@ class DBService:
             "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
             "updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
             "user_id INTEGER,"
+            "UNIQUE (name, user_id),"
             "FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE"
             ")"
         )
@@ -193,6 +196,15 @@ class DBService:
                 lat,
                 lon,
             ),
+        )
+        place = await self._cursor.fetchone()
+
+        return place
+
+    async def get_place_by_name(self, name: str, user_id: int):
+        await self._cursor.execute(
+            "SELECT * FROM places WHERE user_id = (?) AND name = (?)",
+            (user_id, name),
         )
         place = await self._cursor.fetchone()
 
