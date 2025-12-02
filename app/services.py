@@ -64,7 +64,7 @@ class WeatherService:
         wind: dict = data["wind"]
 
         return Weather(
-            Messages.get_markdown_weather_text(
+            Messages.get_weather_text(
                 description=weather["description"],
                 temperature=main["temp"],
                 feels_like=main["feels_like"],

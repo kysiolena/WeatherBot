@@ -17,6 +17,8 @@ class Messages:
     FAVORITE_PLACES_SELECT = (
         "📍 Select Favorite Place where you want to know the weather"
     )
+    FAVORITE_PLACES_EMPTY = ("Your list of Favorite Places is currently empty 🥡.\n"
+                             "But you can always send a new location and save it 😉")
     FAVORITE_PLACES_ADD_BUTTON = "➕ Add to Favorite Places"
     FAVORITE_PLACES_ADD_SUCCESS = (
         "Place was successfully added to your favorite places!"
@@ -37,7 +39,7 @@ class Messages:
         return f"👋 Hello, {html.bold(message.from_user.full_name)}!\n\n"
 
     @staticmethod
-    def get_markdown_weather_text(
+    def get_weather_text(
             description: str | int | float | None = None,
             temperature: str | int | float | None = None,
             feels_like: str | int | float | None = None,
@@ -48,21 +50,21 @@ class Messages:
         text = []
 
         if description:
-            text.append(f"🌤 _Weather:_ *{description.capitalize()}*")
+            text.append(f"🌤 Weather: {description.capitalize()}")
 
         if temperature:
-            text.append(f"🌡 _Temperature:_ *{temperature} °C*")
+            text.append(f"🌡 Temperature: {temperature} °C")
 
         if feels_like:
-            text.append(f"🌡 _Feels like:_ *{feels_like} °C*")
+            text.append(f"🌡 Feels like: {feels_like} °C")
 
         if pressure:
-            text.append(f"🏋️‍♂️ _Pressure:_ *{pressure} hPa*")
+            text.append(f"🏋️‍♂️ Pressure: {pressure} hPa")
 
         if humidity:
-            text.append(f"💦 _Humidity:_ *{humidity} %*")
+            text.append(f"💦 Humidity: {humidity} %")
 
         if wind_speed:
-            text.append(f"💨 _Wind:_ *{wind_speed} m/s*")
+            text.append(f"💨 Wind: {wind_speed} m/s")
 
         return "\n\n".join(text)
