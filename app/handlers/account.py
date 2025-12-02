@@ -4,7 +4,7 @@ from aiogram.types import Message
 
 import app.keyboards as kb
 from app.messages import Messages
-from app.middlewares import DBMiddleware
+from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import DBService
 
 # Router
@@ -13,6 +13,8 @@ account_router = Router()
 # Known Handlers
 account_router.message.middleware(DBMiddleware())
 account_router.callback_query.middleware(DBMiddleware())
+account_router.message.middleware(AuthMiddleware())
+account_router.callback_query.middleware(AuthMiddleware())
 
 
 @account_router.message(F.contact)

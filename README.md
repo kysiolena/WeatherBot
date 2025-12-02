@@ -10,6 +10,8 @@ Find the answer here 😉
 1. [x] Start Handler
 2. [x] Location Handler
 3. [x] Create and Delete User Handlers
-4. [ ] Favorite Locations (CRUD)
-5. [ ] Middleware for checking User Authentication
-6. [ ] Tests
+4. [x] Favorite Locations (CRUD)
+5. [x] Middleware for DB connect
+6. [x] Middleware for checking User Authentication
+7. [ ] Errors handling
+8. [ ] Tests

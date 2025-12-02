@@ -6,7 +6,7 @@ from aiogram.types import CallbackQuery, Message
 import app.keyboards as kb
 from app.callbacks import Callbacks
 from app.messages import Messages
-from app.middlewares import DBMiddleware
+from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import WeatherService, DBService
 
 # Router
@@ -15,6 +15,8 @@ place_router = Router()
 # Known Handlers
 place_router.message.middleware(DBMiddleware())
 place_router.callback_query.middleware(DBMiddleware())
+place_router.message.middleware(AuthMiddleware())
+place_router.callback_query.middleware(AuthMiddleware())
 
 
 # State for Place Create
