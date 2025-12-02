@@ -59,8 +59,6 @@ class WeatherService:
         else:
             data = self._get_weather_by_coordinates(lat, lon)
 
-        print(data)
-
         weather: dict = data["weather"][0]
         main: dict = data["main"]
         wind: dict = data["wind"]
