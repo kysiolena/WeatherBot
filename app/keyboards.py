@@ -47,17 +47,17 @@ def location(
         kb.add(
             InlineKeyboardButton(
                 text=Messages.FAVORITE_PLACES_RENAME_BUTTON,
-                callback_data=f"{Callbacks.FAVORITE_PLACE_RENAME}?{place_id}",
+                callback_data=f"{Callbacks.FAVORITE_PLACE_RENAME}?{lat}|{lon}|{place_id}",
             )
         )
         kb.add(
             InlineKeyboardButton(
                 text=Messages.FAVORITE_PLACES_DELETE_BUTTON,
-                callback_data=f"{Callbacks.FAVORITE_PLACE_DELETE}?{place_id}",
+                callback_data=f"{Callbacks.FAVORITE_PLACE_DELETE}?{lat}|{lon}|{place_id}",
             )
         )
 
-    elif lat and lon:
+    else:
         kb.add(
             InlineKeyboardButton(
                 text=Messages.FAVORITE_PLACES_ADD_BUTTON,
