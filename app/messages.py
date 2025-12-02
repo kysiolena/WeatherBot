@@ -13,23 +13,23 @@ class Messages:
     ACCOUNT_DELETED = "Your account has been deleted."
     ACCOUNT_DELETE_BUTTON = "❌ Delete account"
 
-    FAVORITE_PLACES_SEE_BUTTON = "🧡 See Favorite Places"
-    FAVORITE_PLACES_SELECT = (
+    PLACES_SEE_BUTTON = "🧡 See Favorite Places"
+    PLACES_SELECT = (
         "📍 Select Favorite Place where you want to know the weather"
     )
-    FAVORITE_PLACES_EMPTY = ("Your list of Favorite Places is currently empty 🥡.\n"
-                             "But you can always send a new location and save it 😉")
-    FAVORITE_PLACES_ADD_BUTTON = "➕ Add to Favorite Places"
-    FAVORITE_PLACES_ADD_SUCCESS = (
+    PLACES_EMPTY = ("Your list of Favorite Places is currently empty 🥡.\n"
+                    "But you can always send a new location and save it 😉")
+    PLACES_ADD_BUTTON = "➕ Add to Favorite Places"
+    PLACES_ADD_SUCCESS = (
         "Place was successfully added to your favorite places!"
     )
-    FAVORITE_PLACES_DELETE_BUTTON = "❌ Delete from Favorite Places"
-    FAVORITE_PLACES_DELETE_SUCCESS = (
+    PLACES_DELETE_BUTTON = "❌ Delete from Favorite Places"
+    PLACES_DELETE_SUCCESS = (
         "Place was successfully deleted from your favorite places!"
     )
-    FAVORITE_PLACES_RENAME_BUTTON = "✏️ Rename Favorite Place"
-    FAVORITE_PLACES_RENAME_SUCCESS = "Favorite place was successfully renamed!"
-    FAVORITE_PLACES_RENAME_ENTER_NAME = "Please enter new name for this favorite place"
+    PLACES_RENAME_BUTTON = "✏️ Rename Favorite Place"
+    PLACES_RENAME_SUCCESS = "Favorite place was successfully renamed!"
+    PLACES_RENAME_ENTER_NAME = "Please enter new name for this favorite place"
 
     @staticmethod
     def get_hello_text(message: Message) -> str:

@@ -13,7 +13,7 @@ main = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text=Messages.FAVORITE_PLACES_SEE_BUTTON,
+                text=Messages.PLACES_SEE_BUTTON,
             ),
             KeyboardButton(
                 text=Messages.ACCOUNT_DELETE_BUTTON,
@@ -46,22 +46,22 @@ def location(
     if place_id:
         kb.add(
             InlineKeyboardButton(
-                text=Messages.FAVORITE_PLACES_RENAME_BUTTON,
-                callback_data=f"{Callbacks.FAVORITE_PLACE_RENAME}?{lat}|{lon}|{place_id}",
+                text=Messages.PLACES_RENAME_BUTTON,
+                callback_data=f"{Callbacks.PLACE_RENAME}?{lat}|{lon}|{place_id}",
             )
         )
         kb.add(
             InlineKeyboardButton(
-                text=Messages.FAVORITE_PLACES_DELETE_BUTTON,
-                callback_data=f"{Callbacks.FAVORITE_PLACE_DELETE}?{lat}|{lon}|{place_id}",
+                text=Messages.PLACES_DELETE_BUTTON,
+                callback_data=f"{Callbacks.PLACE_DELETE}?{lat}|{lon}|{place_id}",
             )
         )
 
     else:
         kb.add(
             InlineKeyboardButton(
-                text=Messages.FAVORITE_PLACES_ADD_BUTTON,
-                callback_data=f"{Callbacks.FAVORITE_PLACE_ADD}?{lat}|{lon}",
+                text=Messages.PLACES_ADD_BUTTON,
+                callback_data=f"{Callbacks.PLACE_ADD}?{lat}|{lon}",
             )
         )
 
