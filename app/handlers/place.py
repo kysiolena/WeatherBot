@@ -4,7 +4,7 @@ from aiogram.types import CallbackQuery, Message
 
 import app.keyboards as kb
 from app.middlewares import DBMiddleware, AuthMiddleware
-from app.services import WeatherService, DBService
+from app.services import WeatherService, DBService, DBError
 from app.states import PlaceEdit, PlaceCreate, PlacesList, save_callback_and_message
 from app.texts import Callbacks, Buttons
 from app.texts import Errors
@@ -44,53 +44,67 @@ async def place_add_first_handler(callback: CallbackQuery, state: FSMContext) ->
 
 @place_router.message(PlaceCreate.name)
 async def place_add_second_handler(message: Message, state: FSMContext, db: DBService) -> None:
-    tg_id = message.from_user.id
-
-    data = await state.get_data()
-
-    await state.clear()
-
     name = message.text
 
-    # Create Place
-    place_id = await db.create_place(
-        name=name,
-        lon=data["lon"],
-        lat=data["lat"],
-        user_id=tg_id,
-    )
+    if name:
+        tg_id = message.from_user.id
 
-    # Get new caption
-    caption = data["message_caption"] + "\n\n" + f"*{name}*"
+        data = await state.get_data()
 
-    await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
-                                            text=Messages.PLACES_ADD_SUCCESS)
-    await message.bot.edit_message_caption(
-        chat_id=data["chat_id"],
-        message_id=data["message_id"],
-        caption=caption,
-        parse_mode="Markdown",
-        reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=place_id),
-    )
-    await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+        await state.clear()
+
+        try:
+            # Create Place
+            place_id = await db.create_place(
+                name=name,
+                lon=data["lon"],
+                lat=data["lat"],
+                user_id=tg_id,
+            )
+
+            # Get new caption
+            caption = data["message_caption"] + "\n\n" + f"*{name}*"
+
+            await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
+                                                    text=Messages.PLACES_ADD_SUCCESS)
+            await message.bot.edit_message_caption(
+                chat_id=data["chat_id"],
+                message_id=data["message_id"],
+                caption=caption,
+                parse_mode="Markdown",
+                reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=place_id),
+            )
+            await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+        except DBError:
+            await message.answer(
+                Errors.PLACE_CREATE
+            )
+    else:
+        await message.answer(
+            Errors.PLACE_NAME_EMPTY,
+            reply_markup=kb.cancel
+        )
 
 
 @place_router.callback_query(F.data.startswith(Callbacks.PLACE_DELETE))
 async def place_delete_handler(callback: CallbackQuery, db: DBService) -> None:
     lat, lon, place_id = callback.data.split("?")[1].split("|")
 
-    # Delete Place
-    await db.delete_place(place_id=int(place_id))
+    try:
+        # Delete Place
+        await db.delete_place(place_id=int(place_id))
 
-    # Get new caption
-    caption = "\n\n".join(callback.message.caption.split("\n\n")[:-1])
+        # Get new caption
+        caption = "\n\n".join(callback.message.caption.split("\n\n")[:-1])
 
-    await callback.answer(Messages.PLACES_DELETE_SUCCESS)
-    await callback.message.edit_caption(
-        caption=caption,
-        reply_markup=kb.location(lat=float(lat), lon=float(lon), place_id=None),
-    )
-    await callback.message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+        await callback.answer(Messages.PLACES_DELETE_SUCCESS)
+        await callback.message.edit_caption(
+            caption=caption,
+            reply_markup=kb.location(lat=float(lat), lon=float(lon), place_id=None),
+        )
+        await callback.message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+    except DBError:
+        await callback.message.answer(Errors.PLACE_DELETE)
 
 
 @place_router.callback_query(F.data.startswith(Callbacks.PLACE_RENAME))
@@ -124,72 +138,97 @@ async def place_rename_second_handler(
 ) -> None:
     name = message.text
 
-    # Get stored data
-    data = await state.get_data()
+    if name:
+        # Get stored data
+        data = await state.get_data()
 
-    await state.clear()
+        await state.clear()
 
-    # Rename Place
-    await db.update_place(place_id=data["id"], name=name)
+        try:
+            # Rename Place
+            await db.update_place(place_id=data["id"], name=name)
 
-    # Get new caption
-    caption = data["message_caption"].split("\n\n")[:-1]
-    caption.append(f"*{name}*")
-    caption = "\n\n".join(caption)
+            # Get new caption
+            caption = data["message_caption"].split("\n\n")[:-1]
+            caption.append(f"*{name}*")
+            caption = "\n\n".join(caption)
 
-    await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
-                                            text=Messages.PLACES_RENAME_SUCCESS)
-    await message.bot.edit_message_caption(
-        chat_id=data["chat_id"],
-        message_id=data["message_id"],
-        caption=caption,
-        parse_mode="Markdown",
-        reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=data["id"]),
-    )
+            await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
+                                                    text=Messages.PLACES_RENAME_SUCCESS)
+            await message.bot.edit_message_caption(
+                chat_id=data["chat_id"],
+                message_id=data["message_id"],
+                caption=caption,
+                parse_mode="Markdown",
+                reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=data["id"]),
+            )
+        except DBError:
+            await message.answer(Errors.PLACE_UPDATE, reply_markup=kb.main)
+    else:
+        await message.answer(
+            Errors.PLACE_NAME_EMPTY,
+            reply_markup=kb.cancel
+        )
 
 
 @place_router.message(F.text == Buttons.PLACES_SEE)
 async def place_see_handler(message: Message, state: FSMContext, db: DBService) -> None:
     tg_id = message.from_user.id
 
-    places = await db.get_user_places(user_id=tg_id)
+    try:
+        places = await db.get_user_places(user_id=tg_id)
 
-    await state.set_state(PlacesList.name)
+        if places and len(places):
+            await state.set_state(PlacesList.name)
 
-    text = Messages.PLACES_SELECT if len(places) else Messages.PLACES_EMPTY
-
-    await message.answer(
-        text, reply_markup=kb.places(places=places)
-    )
+            await message.answer(
+                Messages.PLACES_SELECT, reply_markup=kb.places(places=places)
+            )
+        else:
+            await message.answer(
+                Messages.PLACES_EMPTY, reply_markup=kb.main
+            )
+    except DBError:
+        await message.answer(Errors.PLACE_LIST)
 
 
 @place_router.message(PlacesList.name, F.text != Buttons.BACK_TO_MAIN_MENU)
 async def place_select_handler(message: Message, db: DBService) -> None:
-    # Get Place
-    place = await db.get_place_by_name(
-        name=message.text, user_id=message.from_user.id
-    )
+    if message.text:
+        # Get Place
+        place = await db.get_place_by_name(
+            name=message.text, user_id=message.from_user.id
+        )
 
-    place_id, name, lat, lon, *rest = place or [None, None, None, None, None]
+        if place:
+            place_id, name, lat, lon, *rest = place or [None, None, None, None, None]
 
-    # Create instance
-    w_s = WeatherService()
+            # Create instance
+            w_s = WeatherService()
 
-    # Get weather description
-    weather = await w_s.get_weather(lon=lon, lat=lat)
+            # Get weather description
+            weather = await w_s.get_weather(lon=lon, lat=lat)
 
-    if weather["error"]:
-        await message.answer(Errors.PLACE_SELECT)
+            if weather["error"]:
+                await message.answer(Errors.PLACE_SELECT)
+            else:
+                # Get caption
+                caption = weather["text"] + "\n\n" + f"*{name}*"
+
+                # Reply
+                await message.reply_photo(
+                    photo=weather["photo"],
+                    caption=caption,
+                    parse_mode="Markdown",
+                    reply_markup=kb.location(lat=lat, lon=lon, place_id=place_id),
+                )
+        else:
+            await message.answer(
+                Errors.PLACE_NAME_NO_EXIST
+            )
     else:
-        # Get caption
-        caption = weather["text"] + "\n\n" + f"*{name}*"
-
-        # Reply
-        await message.reply_photo(
-            photo=weather["photo"],
-            caption=caption,
-            parse_mode="Markdown",
-            reply_markup=kb.location(lat=lat, lon=lon, place_id=place_id),
+        await message.answer(
+            Errors.PLACE_NAME_INVALID
         )
 
 
