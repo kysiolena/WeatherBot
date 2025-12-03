@@ -4,8 +4,8 @@ from aiogram.types import (
 )
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from app.callbacks import Callbacks
-from app.messages import Messages
+from app.texts.callbacks import Callbacks
+from app.texts.messages import Messages
 
 
 def location(

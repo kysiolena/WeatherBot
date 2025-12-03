@@ -3,9 +3,9 @@ from aiogram import Router
 from aiogram.types import Message
 
 import app.keyboards as kb
-from app.messages import Messages
 from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import DBService
+from app.texts.messages import Messages
 
 # Router
 account_router = Router()

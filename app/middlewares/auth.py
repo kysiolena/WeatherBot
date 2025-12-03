@@ -4,7 +4,7 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, Message, CallbackQuery
 
 import app.keyboards as kb
-from app.messages import Messages
+from app.texts.messages import Messages
 
 
 class AuthMiddleware(BaseMiddleware):

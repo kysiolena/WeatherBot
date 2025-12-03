@@ -3,7 +3,8 @@ from collections import namedtuple
 
 import requests
 
-from app.messages import Messages
+from app.texts.messages import Messages
+
 
 Weather = namedtuple("Weather", ["text", "photo"])
 

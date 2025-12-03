@@ -8,6 +8,8 @@ from app.callbacks import Callbacks
 from app.messages import Messages
 from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import WeatherService, DBService
+from app.texts.callbacks import Callbacks
+from app.texts.messages import Messages
 
 # Router
 place_router = Router()

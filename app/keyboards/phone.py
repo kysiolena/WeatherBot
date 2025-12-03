@@ -3,7 +3,7 @@ from aiogram.types import (
     KeyboardButton,
 )
 
-from app.messages import Messages
+from app.texts.messages import Messages
 
 phone = ReplyKeyboardMarkup(
     keyboard=[

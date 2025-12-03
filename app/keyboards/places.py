@@ -4,7 +4,7 @@ from aiogram.types import (
 )
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
-from app.messages import Messages
+from app.texts.messages import Messages
 
 
 def places(

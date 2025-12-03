@@ -5,8 +5,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 import app.keyboards as kb
-from app.messages import Messages
 from app.middlewares import DBMiddleware, AuthMiddleware
+from app.texts.messages import Messages
 
 # Router
 main_router = Router()
