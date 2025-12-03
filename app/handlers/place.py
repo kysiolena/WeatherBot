@@ -1,5 +1,3 @@
-import logging
-
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
@@ -211,7 +209,6 @@ async def place_select_handler(message: Message, db: DBService) -> None:
     weather = await w_s.get_weather(lon=lon, lat=lat)
 
     if weather["error"]:
-        logging.error(weather["error"])
         await message.answer(Errors.PLACE_SELECT)
     else:
         # Get caption
@@ -242,7 +239,6 @@ async def place_location_handler(message: Message, db: DBService) -> None:
     weather = await w_s.get_weather(lon=lon, lat=lat)
 
     if weather["error"]:
-        logging.error(weather["error"])
         await message.answer(Errors.PLACE_SELECT)
     else:
         # Get Place
