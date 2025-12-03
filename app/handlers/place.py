@@ -1,11 +1,11 @@
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import CallbackQuery, Message
 
 import app.keyboards as kb
 from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import WeatherService, DBService
+from app.states import PlaceEdit, PlaceCreate, PlacesList, save_callback_and_message
 from app.texts import Callbacks, Buttons
 from app.texts import Errors
 from app.texts import Messages
@@ -20,34 +20,6 @@ place_router.message.middleware(AuthMiddleware())
 place_router.callback_query.middleware(AuthMiddleware())
 
 
-# State for Place Create
-class PlaceCreate(StatesGroup):
-    chat_id = State()
-    callback_id = State()
-    message_id = State()
-    message_caption = State()
-    lat = State()
-    lon = State()
-    name = State()
-
-
-# State for Place Edit
-class PlaceEdit(StatesGroup):
-    chat_id = State()
-    callback_id = State()
-    message_id = State()
-    message_caption = State()
-    lat = State()
-    lon = State()
-    name = State()
-    id = State()
-
-
-# State for Places List
-class PlacesList(StatesGroup):
-    name = State()
-
-
 @place_router.callback_query(F.data.startswith(Callbacks.PLACE_ADD))
 async def place_add_first_handler(callback: CallbackQuery, state: FSMContext) -> None:
     lat, lon = list(map(float, callback.data.split("?")[1].split("|")))
@@ -56,8 +28,10 @@ async def place_add_first_handler(callback: CallbackQuery, state: FSMContext) ->
     await state.set_state(PlaceCreate.name)
 
     # Set lat, lon to State
-    await state.update_data(lat=lat)
-    await state.update_data(lon=lon)
+    await state.update_data({
+        "lat": lat,
+        "lon": lon,
+    })
 
     await callback.message.answer(
         text=Messages.PLACES_RENAME_ENTER_NAME,
@@ -65,10 +39,7 @@ async def place_add_first_handler(callback: CallbackQuery, state: FSMContext) ->
     )
 
     # Set message_id, callback_id to State
-    await state.update_data(chat_id=callback.message.chat.id)
-    await state.update_data(message_id=callback.message.message_id)
-    await state.update_data(message_caption=callback.message.caption)
-    await state.update_data(callback_id=callback.id)
+    await save_callback_and_message(state, callback)
 
 
 @place_router.message(PlaceCreate.name)
@@ -132,9 +103,11 @@ async def place_rename_first_handler(
     await state.set_state(PlaceEdit.name)
 
     # Set id, lat, lon to State
-    await state.update_data(id=int(place_id))
-    await state.update_data(lat=lat)
-    await state.update_data(lon=lon)
+    await state.update_data({
+        "id": int(place_id),
+        "lat": lat,
+        "lon": lon,
+    })
 
     await callback.message.answer(
         text=Messages.PLACES_RENAME_ENTER_NAME,
@@ -142,10 +115,7 @@ async def place_rename_first_handler(
     )
 
     # Set message_id, callback_id to State
-    await state.update_data(chat_id=callback.message.chat.id)
-    await state.update_data(message_id=callback.message.message_id)
-    await state.update_data(message_caption=callback.message.caption)
-    await state.update_data(callback_id=callback.id)
+    await save_callback_and_message(state, callback)
 
 
 @place_router.message(PlaceEdit.name)
