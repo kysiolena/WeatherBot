@@ -1,6 +1,5 @@
 import os
 from sqlite3 import Row
-from typing import Iterable
 
 import aiosqlite
 
@@ -97,14 +96,14 @@ class DBService:
         except Exception as e:
             raise DBError(f"Failed to get user: {e}")
 
-    async def get_user_places(self, user_id: int) -> Iterable[Row] | None:
+    async def get_user_places(self, user_id: int) -> list | None:
         try:
             await self._cursor.execute(
                 "SELECT * FROM places WHERE user_id = (?)", (user_id,)
             )
             places = await self._cursor.fetchall()
 
-            return places
+            return list(places)
         except Exception as e:
             raise DBError(f"Failed to get user's places: {e}")
 
