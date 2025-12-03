@@ -4,7 +4,7 @@ from aiogram.types import (
 )
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
-from app.texts.messages import Messages
+from app.texts import Buttons
 
 
 def places(
@@ -21,7 +21,7 @@ def places(
 
     kb.add(
         KeyboardButton(
-            text=Messages.BACK_TO_MAIN_MENU_BUTTON,
+            text=Buttons.BACK_TO_MAIN_MENU,
         )
     )
 

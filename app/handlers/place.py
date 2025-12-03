@@ -8,9 +8,9 @@ from aiogram.types import CallbackQuery, Message
 import app.keyboards as kb
 from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import WeatherService, DBService
+from app.texts import Callbacks, Buttons
 from app.texts import Errors
-from app.texts.callbacks import Callbacks
-from app.texts.messages import Messages
+from app.texts import Messages
 
 # Router
 place_router = Router()
@@ -180,7 +180,7 @@ async def place_rename_second_handler(
     )
 
 
-@place_router.message(F.text == Messages.PLACES_SEE_BUTTON)
+@place_router.message(F.text == Buttons.PLACES_SEE)
 async def place_see_handler(message: Message, state: FSMContext, db: DBService) -> None:
     tg_id = message.from_user.id
 
@@ -195,7 +195,7 @@ async def place_see_handler(message: Message, state: FSMContext, db: DBService) 
     )
 
 
-@place_router.message(PlacesList.name, F.text != Messages.BACK_TO_MAIN_MENU_BUTTON)
+@place_router.message(PlacesList.name, F.text != Buttons.BACK_TO_MAIN_MENU)
 async def place_select_handler(message: Message, db: DBService) -> None:
     # Get Place
     place = await db.get_place_by_name(

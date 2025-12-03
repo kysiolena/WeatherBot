@@ -5,7 +5,7 @@ from aiogram.types import Message
 import app.keyboards as kb
 from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import DBService
-from app.texts.messages import Messages
+from app.texts import Messages, Buttons
 
 # Router
 account_router = Router()
@@ -36,7 +36,7 @@ async def account_create_handler(message: Message, db: DBService) -> None:
     await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
 
 
-@account_router.message(F.text == Messages.ACCOUNT_DELETE_BUTTON)
+@account_router.message(F.text == Buttons.ACCOUNT_DELETE)
 async def account_delete_handler(message: Message, db: DBService) -> None:
     tg_id = message.from_user.id
 

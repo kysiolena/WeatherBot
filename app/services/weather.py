@@ -3,7 +3,7 @@ from typing import TypedDict
 
 import httpx
 
-from app.texts.messages import Messages
+from app.texts import Messages
 
 
 class TWeather(TypedDict):

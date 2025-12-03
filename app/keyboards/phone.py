@@ -3,13 +3,13 @@ from aiogram.types import (
     KeyboardButton,
 )
 
-from app.texts.messages import Messages
+from app.texts import Buttons
 
 phone = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text=Messages.PHONE_SHARE_BUTTON,
+                text=Buttons.PHONE_SHARE,
                 request_contact=True,
             )
         ]

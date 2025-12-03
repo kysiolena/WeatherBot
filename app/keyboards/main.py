@@ -3,16 +3,16 @@ from aiogram.types import (
     KeyboardButton,
 )
 
-from app.texts.messages import Messages
+from app.texts import Buttons
 
 main = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(
-                text=Messages.PLACES_SEE_BUTTON,
+                text=Buttons.PLACES_SEE,
             ),
             KeyboardButton(
-                text=Messages.ACCOUNT_DELETE_BUTTON,
+                text=Buttons.ACCOUNT_DELETE,
             ),
         ]
     ],

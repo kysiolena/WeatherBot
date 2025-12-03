@@ -4,8 +4,7 @@ from aiogram.types import (
 )
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from app.texts.callbacks import Callbacks
-from app.texts.messages import Messages
+from app.texts import Callbacks, Buttons
 
 
 def location(
@@ -18,13 +17,13 @@ def location(
     if place_id:
         kb.add(
             InlineKeyboardButton(
-                text=Messages.PLACES_RENAME_BUTTON,
+                text=Buttons.PLACES_RENAME,
                 callback_data=f"{Callbacks.PLACE_RENAME}?{lat}|{lon}|{place_id}",
             )
         )
         kb.add(
             InlineKeyboardButton(
-                text=Messages.PLACES_DELETE_BUTTON,
+                text=Buttons.PLACES_DELETE,
                 callback_data=f"{Callbacks.PLACE_DELETE}?{lat}|{lon}|{place_id}",
             )
         )
@@ -32,7 +31,7 @@ def location(
     else:
         kb.add(
             InlineKeyboardButton(
-                text=Messages.PLACES_ADD_BUTTON,
+                text=Buttons.PLACES_ADD,
                 callback_data=f"{Callbacks.PLACE_ADD}?{lat}|{lon}",
             )
         )

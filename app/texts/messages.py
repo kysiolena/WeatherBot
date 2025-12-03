@@ -3,31 +3,20 @@ from aiogram.types import Message
 
 
 class Messages:
-    BACK_TO_MAIN_MENU_BUTTON = "Back to Main Menu ↩️"
-
     LOCATION_SEND = "🗺 Send the location where you want to know the weather."
-
     PHONE_SHARE = "Please share your phone number to continue."
-    PHONE_SHARE_BUTTON = "Share the phone number"
-
     ACCOUNT_DELETED = "Your account has been deleted."
-    ACCOUNT_DELETE_BUTTON = "❌ Delete account"
-
-    PLACES_SEE_BUTTON = "🧡 See Favorite Places"
     PLACES_SELECT = (
         "📍 Select Favorite Place where you want to know the weather"
     )
     PLACES_EMPTY = ("Your list of Favorite Places is currently empty 🥡.\n"
                     "But you can always send a new location and save it 😉")
-    PLACES_ADD_BUTTON = "➕ Add to Favorite Places"
     PLACES_ADD_SUCCESS = (
         "Place was successfully added to your favorite places!"
     )
-    PLACES_DELETE_BUTTON = "❌ Delete from Favorite Places"
     PLACES_DELETE_SUCCESS = (
         "Place was successfully deleted from your favorite places!"
     )
-    PLACES_RENAME_BUTTON = "✏️ Rename Favorite Place"
     PLACES_RENAME_SUCCESS = "Favorite place was successfully renamed!"
     PLACES_RENAME_ENTER_NAME = "Please enter new name for this favorite place"
 

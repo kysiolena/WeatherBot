@@ -6,7 +6,7 @@ from aiogram.types import Message
 
 import app.keyboards as kb
 from app.middlewares import DBMiddleware, AuthMiddleware
-from app.texts.messages import Messages
+from app.texts import Messages, Buttons
 
 # Router
 main_router = Router()
@@ -26,7 +26,7 @@ async def command_start_handler(message: Message) -> None:
     await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
 
 
-@main_router.message(F.text == Messages.BACK_TO_MAIN_MENU_BUTTON)
+@main_router.message(F.text == Buttons.BACK_TO_MAIN_MENU)
 async def back_to_main_menu_handler(message: Message, state: FSMContext) -> None:
     await state.clear()
 
