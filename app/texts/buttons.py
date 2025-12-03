@@ -1,5 +1,6 @@
 class Buttons:
     BACK_TO_MAIN_MENU = "Back to Main Menu ↩️"
+    CANCEL = "🛑 Cancel"
     PHONE_SHARE = "📟 Share the phone number"
     ACCOUNT_DELETE = "❌ Delete account"
     PLACES_SEE = "🧡 See Favorite Places"

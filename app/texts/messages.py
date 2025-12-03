@@ -19,6 +19,7 @@ class Messages:
     )
     PLACES_RENAME_SUCCESS = "Favorite place was successfully renamed!"
     PLACES_RENAME_ENTER_NAME = "Please enter new name for this favorite place"
+    CANCEL_SUCCESS = "You have successfully returned to the main menu!"
 
     @staticmethod
     def get_hello_text(message: Message) -> str:
