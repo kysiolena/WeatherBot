@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/place.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/place.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/db.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/db.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +151,7 @@
       <workItem from="1764571562478" duration="13715000" />
       <workItem from="1764594268203" duration="14759000" />
       <workItem from="1764658937300" duration="25575000" />
-      <workItem from="1764751800189" duration="7990000" />
+      <workItem from="1764751800189" duration="9907000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <option name="closed" value="true" />
@@ -537,7 +537,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764759751006</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Delete logging from place.py">
+      <option name="closed" value="true" />
+      <created>1764759914545</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1764759914545</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +564,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add WeatherService" />
     <MESSAGE value="Add requirements.txt" />
     <MESSAGE value="Add DBService" />
     <MESSAGE value="Add messages.py module" />
@@ -581,11 +588,12 @@
     <MESSAGE value="Add errors module in texts package" />
     <MESSAGE value="Replace request with httpx and add errors handling for methods of WeatherService" />
     <MESSAGE value="Move all _BUTTON from messages to buttons module" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move all _BUTTON from messages to buttons module" />
+    <MESSAGE value="Delete logging from place.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete logging from place.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/WeatherBot$settings.coverage" NAME="settings Coverage Results" MODIFIED="1764360619307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764759825301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764761773422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WeatherBot$handlers.coverage" NAME="handlers Coverage Results" MODIFIED="1762877188013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$api.coverage" NAME="api Coverage Results" MODIFIED="1764345171410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$vimeo_downloader.coverage" NAME="vimeo-downloader Coverage Results" MODIFIED="1761831923748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

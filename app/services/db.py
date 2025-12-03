@@ -1,6 +1,12 @@
 import os
+from sqlite3 import Row
+from typing import Iterable
 
 import aiosqlite
+
+
+class DBError(Exception):
+    pass
 
 
 class DBService:
@@ -50,102 +56,167 @@ class DBService:
 
         await self._create_trigger("places")
 
-    async def _create_tables(self):
+    async def _create_tables(self) -> None:
         await self._create_users_table()
         await self._create_places_table()
 
-    async def create_user(self, user_id: int, phone: str):
-        await self._cursor.execute(
-            "INSERT INTO users (id, phone) VALUES (?, ?)", (user_id, phone)
-        )
+    async def create_user(self, user_id: int, phone: str) -> int | None:
+        try:
+            await self._cursor.execute(
+                "INSERT INTO users (id, phone) VALUES (?, ?)", (user_id, phone)
+            )
 
-        await self._connection.commit()
+            user_id = self._cursor.lastrowid
 
-    async def delete_user(self, user_id: int):
-        await self._cursor.execute("DELETE FROM users WHERE id = (?)", (user_id,))
-        await self._connection.commit()
+            await self._connection.commit()
 
-    async def get_user(self, user_id: int):
-        await self._cursor.execute("SELECT * FROM users WHERE id = (?)", (user_id,))
-        user = await self._cursor.fetchone()
+            return user_id
+        except Exception as e:
+            await self._connection.rollback()
 
-        return user
+            raise DBError(f"Failed to create user: {e}")
 
-    async def get_user_places(self, user_id: int):
-        await self._cursor.execute(
-            "SELECT * FROM places WHERE user_id = (?)", (user_id,)
-        )
-        places = await self._cursor.fetchall()
+    async def delete_user(self, user_id: int) -> bool | None:
+        try:
+            await self._cursor.execute("DELETE FROM users WHERE id = (?)", (user_id,))
 
-        return places
+            await self._connection.commit()
+
+            return True
+        except Exception as e:
+            await self._connection.rollback()
+
+            raise DBError(f"Failed to delete user: {e}")
+
+    async def get_user(self, user_id: int) -> Row | None:
+        try:
+            await self._cursor.execute("SELECT * FROM users WHERE id = (?)", (user_id,))
+            user = await self._cursor.fetchone()
+
+            return user
+        except Exception as e:
+            raise DBError(f"Failed to get user: {e}")
+
+    async def get_user_places(self, user_id: int) -> Iterable[Row] | None:
+        try:
+            await self._cursor.execute(
+                "SELECT * FROM places WHERE user_id = (?)", (user_id,)
+            )
+            places = await self._cursor.fetchall()
+
+            return places
+        except Exception as e:
+            raise DBError(f"Failed to get user's places: {e}")
 
     async def create_place(
             self, name: str, lat: int | float, lon: int | float, user_id: int
-    ):
-        await self._cursor.execute(
-            "INSERT INTO places (name, lat, lon, user_id) VALUES (?, ?, ?, ?)",
-            (name, lat, lon, user_id),
-        )
+    ) -> int | None:
+        try:
+            await self._cursor.execute(
+                "INSERT INTO places (name, lat, lon, user_id) VALUES (?, ?, ?, ?)",
+                (name, lat, lon, user_id),
+            )
 
-        place_id = self._cursor.lastrowid
+            place_id = self._cursor.lastrowid
 
-        await self._connection.commit()
+            await self._connection.commit()
 
-        return place_id
+            return place_id
+        except Exception as e:
+            await self._connection.rollback()
 
-    async def update_place(self, name: str, place_id: int):
-        await self._cursor.execute(
-            "UPDATE places SET name = (?) WHERE id = (?)",
-            (name, place_id),
-        )
+            raise DBError(f"Failed to create place: {e}")
 
-        await self._connection.commit()
+    async def update_place(self, name: str, place_id: int) -> bool | None:
+        try:
+            await self._cursor.execute(
+                "UPDATE places SET name = (?) WHERE id = (?)",
+                (name, place_id),
+            )
 
-    async def delete_place(self, place_id: int):
-        await self._cursor.execute("DELETE FROM places WHERE id = (?)", (place_id,))
-        await self._connection.commit()
+            await self._connection.commit()
 
-    async def get_place(self, place_id: int):
-        await self._cursor.execute("SELECT * FROM places WHERE id = (?)", (place_id,))
-        place = await self._cursor.fetchone()
+            return True
+        except Exception as e:
+            await self._connection.rollback()
 
-        return place
+            raise DBError(f"Failed to update place: {e}")
+
+    async def delete_place(self, place_id: int) -> bool | None:
+        try:
+            await self._cursor.execute("DELETE FROM places WHERE id = (?)", (place_id,))
+
+            await self._connection.commit()
+
+            return True
+        except Exception as e:
+            await self._connection.rollback()
+
+            raise DBError(f"Failed to delete place: {e}")
+
+    async def get_place(self, place_id: int) -> Row | None:
+        try:
+            await self._cursor.execute("SELECT * FROM places WHERE id = (?)", (place_id,))
+
+            place = await self._cursor.fetchone()
+
+            return place
+        except Exception as e:
+            raise DBError(f"Failed to get place by ID: {e}")
 
     async def get_place_by_coordinates(
             self, user_id: int, lat: int | float, lon: int | float
-    ):
-        await self._cursor.execute(
-            "SELECT * FROM places WHERE user_id = (?) AND lat = (?) AND lon = (?)",
-            (
-                user_id,
-                lat,
-                lon,
-            ),
-        )
-        place = await self._cursor.fetchone()
+    ) -> Row | None:
+        try:
+            await self._cursor.execute(
+                "SELECT * FROM places WHERE user_id = (?) AND lat = (?) AND lon = (?)",
+                (
+                    user_id,
+                    lat,
+                    lon,
+                ),
+            )
 
-        return place
+            place = await self._cursor.fetchone()
 
-    async def get_place_by_name(self, name: str, user_id: int):
-        await self._cursor.execute(
-            "SELECT * FROM places WHERE user_id = (?) AND name = (?)",
-            (user_id, name),
-        )
-        place = await self._cursor.fetchone()
+            return place
+        except Exception as e:
+            raise DBError(f"Failed to get place by coordinates: {e}")
 
-        return place
+    async def get_place_by_name(self, name: str, user_id: int) -> Row | None:
+        try:
+            await self._cursor.execute(
+                "SELECT * FROM places WHERE user_id = (?) AND name = (?)",
+                (user_id, name),
+            )
+            place = await self._cursor.fetchone()
 
-    async def connect(self):
-        self._connection = await aiosqlite.connect(os.path.join("database.db"))
+            return place
+        except Exception as e:
+            raise DBError(f"Failed to get place by name: {e}")
 
-        # Enable Foreign Key Support
-        await self._connection.execute("PRAGMA foreign_keys = ON;")
+    async def connect(self) -> None:
+        try:
+            self._connection = await aiosqlite.connect(os.path.join("database.db"))
 
-        self._cursor = await self._connection.cursor()
+            # Enable Foreign Key Support
+            await self._connection.execute("PRAGMA foreign_keys = ON;")
 
-    async def close(self):
-        await self._cursor.close()
-        await self._connection.close()
+            self._cursor = await self._connection.cursor()
+        except Exception as e:
+            raise DBError(f"Failed to connect to database: {e}")
 
-    async def setup(self):
-        await self._create_tables()
+    async def close(self) -> None:
+        try:
+            await self._cursor.close()
+            await self._connection.close()
+        except Exception as e:
+            raise DBError(f"Failed to close database connection: {e}")
+
+    async def setup(self) -> bool | None:
+        try:
+            await self._create_tables()
+
+            return True
+        except Exception as e:
+            raise DBError(f"Failed to setup DB: {e}")
