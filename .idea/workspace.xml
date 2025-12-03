@@ -6,16 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/account.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/handlers/place.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/place.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/keyboards/location.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/keyboards/location.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/keyboards/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/keyboards/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/keyboards/phone.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/keyboards/phone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/keyboards/places.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/keyboards/places.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/texts/messages.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/middlewares/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/middlewares/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/weather.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/weather.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/texts/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/texts/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +154,7 @@
       <workItem from="1764571562478" duration="13715000" />
       <workItem from="1764594268203" duration="14759000" />
       <workItem from="1764658937300" duration="25575000" />
-      <workItem from="1764751800189" duration="2390000" />
+      <workItem from="1764751800189" duration="6638000" />
     </task>
     <task id="LOCAL-00001" summary="Init project">
       <option name="closed" value="true" />
@@ -498,7 +492,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764686133228</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Move messages and callbacks modules into texts package">
+      <option name="closed" value="true" />
+      <created>1764754395184</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1764754395184</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Move messages and callbacks modules into texts package">
+      <option name="closed" value="true" />
+      <created>1764754514795</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1764754514795</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +527,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add get_weather API function" />
     <MESSAGE value="Update location_handler with F.location magic filter" />
     <MESSAGE value="Customize info message with weather data" />
     <MESSAGE value="Add README.md" />
@@ -542,11 +551,12 @@
     <MESSAGE value="Move keyboards" />
     <MESSAGE value="Move middlewares" />
     <MESSAGE value="Add AuthMiddleware" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add AuthMiddleware" />
+    <MESSAGE value="Move messages and callbacks modules into texts package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move messages and callbacks modules into texts package" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/WeatherBot$settings.coverage" NAME="settings Coverage Results" MODIFIED="1764360619307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764685894154" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764758444881" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WeatherBot$handlers.coverage" NAME="handlers Coverage Results" MODIFIED="1762877188013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$api.coverage" NAME="api Coverage Results" MODIFIED="1764345171410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$vimeo_downloader.coverage" NAME="vimeo-downloader Coverage Results" MODIFIED="1761831923748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

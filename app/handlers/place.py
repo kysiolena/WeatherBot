@@ -1,13 +1,14 @@
+import logging
+
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import CallbackQuery, Message
 
 import app.keyboards as kb
-from app.callbacks import Callbacks
-from app.messages import Messages
 from app.middlewares import DBMiddleware, AuthMiddleware
 from app.services import WeatherService, DBService
+from app.texts import Errors
 from app.texts.callbacks import Callbacks
 from app.texts.messages import Messages
 
@@ -207,18 +208,22 @@ async def place_select_handler(message: Message, db: DBService) -> None:
     w_s = WeatherService()
 
     # Get weather description
-    weather = w_s.get_weather(lon=lon, lat=lat)
+    weather = await w_s.get_weather(lon=lon, lat=lat)
 
-    # Get caption
-    caption = weather.text + "\n\n" + f"*{name}*"
+    if weather["error"]:
+        logging.error(weather["error"])
+        await message.answer(Errors.PLACE_SELECT)
+    else:
+        # Get caption
+        caption = weather["text"] + "\n\n" + f"*{name}*"
 
-    # Reply
-    await message.reply_photo(
-        photo=weather.photo,
-        caption=caption,
-        parse_mode="Markdown",
-        reply_markup=kb.location(lat=lat, lon=lon, place_id=place_id),
-    )
+        # Reply
+        await message.reply_photo(
+            photo=weather["photo"],
+            caption=caption,
+            parse_mode="Markdown",
+            reply_markup=kb.location(lat=lat, lon=lon, place_id=place_id),
+        )
 
 
 @place_router.message(F.location)
@@ -234,23 +239,27 @@ async def place_location_handler(message: Message, db: DBService) -> None:
     w_s = WeatherService()
 
     # Get weather description
-    weather = w_s.get_weather(lon=lon, lat=lat)
+    weather = await w_s.get_weather(lon=lon, lat=lat)
 
-    # Get Place
-    place = await db.get_place_by_coordinates(user_id=tg_id, lon=lon, lat=lat)
+    if weather["error"]:
+        logging.error(weather["error"])
+        await message.answer(Errors.PLACE_SELECT)
+    else:
+        # Get Place
+        place = await db.get_place_by_coordinates(user_id=tg_id, lon=lon, lat=lat)
 
-    place_id, name, *rest = place or [None, None, None]
+        place_id, name, *rest = place or [None, None, None]
 
-    # Get caption
-    caption = weather.text + "\n\n" + f"*{name}*" if name else weather.text
+        # Get caption
+        caption = weather["text"] + "\n\n" + f"*{name}*" if name else weather["text"]
 
-    # Reply
-    await message.reply_photo(
-        photo=weather.photo,
-        caption=caption,
-        parse_mode="Markdown",
-        reply_markup=kb.location(
-            lat=lat, lon=lon, place_id=place_id
-        ),
-    )
-    await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+        # Reply
+        await message.reply_photo(
+            photo=weather["photo"],
+            caption=caption,
+            parse_mode="Markdown",
+            reply_markup=kb.location(
+                lat=lat, lon=lon, place_id=place_id
+            ),
+        )
+        await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
