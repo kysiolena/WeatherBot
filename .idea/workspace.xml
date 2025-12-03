@@ -6,13 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="79dca912-1809-43e8-9350-cd354707a258" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/handlers/place.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/place.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/keyboards/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/keyboards/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/texts/buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/texts/buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/texts/callbacks.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/texts/callbacks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/handlers/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/handlers/account.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/texts/errors.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/texts/errors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/texts/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/texts/messages.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,23 +152,7 @@
       <workItem from="1764571562478" duration="13715000" />
       <workItem from="1764594268203" duration="14759000" />
       <workItem from="1764658937300" duration="25575000" />
-      <workItem from="1764751800189" duration="15827000" />
-    </task>
-    <task id="LOCAL-00004" summary="Refactoring a files structure">
-      <option name="closed" value="true" />
-      <created>1762189407790</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1762189407790</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Add get_weather API function">
-      <option name="closed" value="true" />
-      <created>1762197037631</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1762197037631</updated>
+      <workItem from="1764751800189" duration="17110000" />
     </task>
     <task id="LOCAL-00006" summary="Add get_weather API function">
       <option name="closed" value="true" />
@@ -551,7 +530,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764763648120</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Add cancel keyboard and handler">
+      <option name="closed" value="true" />
+      <created>1764767901122</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1764767901122</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add errors handling for place.py">
+      <option name="closed" value="true" />
+      <created>1764767928941</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1764767928941</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,8 +565,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add delete user handler" />
-    <MESSAGE value="Add create and delete place handlers" />
     <MESSAGE value="Add rename place handlers" />
     <MESSAGE value="Add see favorite places handlers" />
     <MESSAGE value="Delete unnecessary print" />
@@ -595,11 +588,13 @@
     <MESSAGE value="Add errors handling for DBService" />
     <MESSAGE value="Fix type of places list" />
     <MESSAGE value="Refactoring place states" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactoring place states" />
+    <MESSAGE value="Add cancel keyboard and handler" />
+    <MESSAGE value="Add errors handling for place.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add errors handling for place.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/WeatherBot$settings.coverage" NAME="settings Coverage Results" MODIFIED="1764360619307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764767627826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/WeatherBot$main.coverage" NAME="main Coverage Results" MODIFIED="1764768871894" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/WeatherBot$handlers.coverage" NAME="handlers Coverage Results" MODIFIED="1762877188013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$api.coverage" NAME="api Coverage Results" MODIFIED="1764345171410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/WeatherBot$vimeo_downloader.coverage" NAME="vimeo-downloader Coverage Results" MODIFIED="1761831923748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

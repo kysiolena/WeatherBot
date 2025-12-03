@@ -4,8 +4,8 @@ from aiogram.types import Message
 
 import app.keyboards as kb
 from app.middlewares import DBMiddleware, AuthMiddleware
-from app.services import DBService
-from app.texts import Messages, Buttons
+from app.services import DBService, DBError
+from app.texts import Messages, Buttons, Errors
 
 # Router
 account_router = Router()
@@ -26,25 +26,31 @@ async def account_create_handler(message: Message, db: DBService) -> None:
     tg_id = message.from_user.id
     phone = message.contact.phone_number
 
-    # Create User
-    await db.create_user(tg_id, phone)
+    try:
+        # Create User
+        await db.create_user(tg_id, phone)
 
-    # Reply
-    await message.answer(
-        text=Messages.get_hello_text(message),
-    )
-    await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+        # Reply
+        await message.answer(
+            text=Messages.get_hello_text(message),
+        )
+        await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+    except DBError:
+        await message.answer(Errors.ACCOUNT_CREATE)
 
 
 @account_router.message(F.text == Buttons.ACCOUNT_DELETE)
 async def account_delete_handler(message: Message, db: DBService) -> None:
     tg_id = message.from_user.id
 
-    # Delete User
-    await db.delete_user(tg_id)
+    try:
+        # Delete User
+        await db.delete_user(tg_id)
 
-    # Reply
-    await message.answer(
-        text=Messages.ACCOUNT_DELETED,
-        reply_markup=kb.phone,
-    )
+        # Reply
+        await message.answer(
+            text=Messages.ACCOUNT_DELETED,
+            reply_markup=kb.phone,
+        )
+    except DBError:
+        await message.answer(Errors.ACCOUNT_DELETE)

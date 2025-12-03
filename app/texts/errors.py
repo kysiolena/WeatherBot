@@ -11,3 +11,5 @@ class Errors:
     PLACE_UPDATE = "Sorry, I couldn't update your place. Please try again later."
     PLACE_DELETE = "Sorry, I couldn't delete the place. Please try again later."
     PLACE_CREATE = "Sorry, I couldn't create a place. Please try again later."
+    ACCOUNT_CREATE = "Sorry, I couldn't create an account. Please try again later."
+    ACCOUNT_DELETE = "Sorry, I couldn't delete the account. Please try again later."
