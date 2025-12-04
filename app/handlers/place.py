@@ -49,36 +49,44 @@ async def place_add_second_handler(message: Message, state: FSMContext, db: DBSe
     if name:
         tg_id = message.from_user.id
 
-        data = await state.get_data()
-
-        await state.clear()
-
         try:
-            # Create Place
-            place_id = await db.create_place(
-                name=name,
-                lon=data["lon"],
-                lat=data["lat"],
-                user_id=tg_id,
-            )
-
-            # Get new caption
-            caption = data["message_caption"] + "\n\n" + f"*{name}*"
-
-            await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
-                                                    text=Messages.PLACES_ADD_SUCCESS)
-            await message.bot.edit_message_caption(
-                chat_id=data["chat_id"],
-                message_id=data["message_id"],
-                caption=caption,
-                parse_mode="Markdown",
-                reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=place_id),
-            )
-            await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+            place = await db.get_place_by_name(name=name, user_id=tg_id)
         except DBError:
-            await message.answer(
-                Errors.PLACE_CREATE
-            )
+            place = None
+
+        if place:
+            await message.answer(Errors.PLACE_ALREADY_EXIST)
+        else:
+            data = await state.get_data()
+
+            await state.clear()
+
+            try:
+                # Create Place
+                place_id = await db.create_place(
+                    name=name,
+                    lon=data["lon"],
+                    lat=data["lat"],
+                    user_id=tg_id,
+                )
+
+                # Get new caption
+                caption = data["message_caption"] + "\n\n" + f"*{name}*"
+
+                await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
+                                                        text=Messages.PLACES_ADD_SUCCESS)
+                await message.bot.edit_message_caption(
+                    chat_id=data["chat_id"],
+                    message_id=data["message_id"],
+                    caption=caption,
+                    parse_mode="Markdown",
+                    reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=place_id),
+                )
+                await message.answer(text=Messages.LOCATION_SEND, reply_markup=kb.main)
+            except DBError:
+                await message.answer(
+                    Errors.PLACE_CREATE
+                )
     else:
         await message.answer(
             Errors.PLACE_NAME_EMPTY,
@@ -139,31 +147,41 @@ async def place_rename_second_handler(
     name = message.text
 
     if name:
-        # Get stored data
-        data = await state.get_data()
-
-        await state.clear()
+        tg_id = message.from_user.id
 
         try:
-            # Rename Place
-            await db.update_place(place_id=data["id"], name=name)
-
-            # Get new caption
-            caption = data["message_caption"].split("\n\n")[:-1]
-            caption.append(f"*{name}*")
-            caption = "\n\n".join(caption)
-
-            await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
-                                                    text=Messages.PLACES_RENAME_SUCCESS)
-            await message.bot.edit_message_caption(
-                chat_id=data["chat_id"],
-                message_id=data["message_id"],
-                caption=caption,
-                parse_mode="Markdown",
-                reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=data["id"]),
-            )
+            place = await db.get_place_by_name(name=name, user_id=tg_id)
         except DBError:
-            await message.answer(Errors.PLACE_UPDATE, reply_markup=kb.main)
+            place = None
+
+        if place:
+            await message.answer(Errors.PLACE_ALREADY_EXIST)
+        else:
+            # Get stored data
+            data = await state.get_data()
+
+            await state.clear()
+
+            try:
+                # Rename Place
+                await db.update_place(place_id=data["id"], name=name)
+
+                # Get new caption
+                caption = data["message_caption"].split("\n\n")[:-1]
+                caption.append(f"*{name}*")
+                caption = "\n\n".join(caption)
+
+                await message.bot.answer_callback_query(callback_query_id=data["callback_id"],
+                                                        text=Messages.PLACES_RENAME_SUCCESS)
+                await message.bot.edit_message_caption(
+                    chat_id=data["chat_id"],
+                    message_id=data["message_id"],
+                    caption=caption,
+                    parse_mode="Markdown",
+                    reply_markup=kb.location(lat=data["lat"], lon=data["lon"], place_id=data["id"]),
+                )
+            except DBError:
+                await message.answer(Errors.PLACE_UPDATE, reply_markup=kb.main)
     else:
         await message.answer(
             Errors.PLACE_NAME_EMPTY,
