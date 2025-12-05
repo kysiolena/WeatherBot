@@ -5,6 +5,13 @@ Find the answer here 😉
 
 [Go To Telegram Bot](https://t.me/Kysiolena_WeatherBot)
 
+![Bot Start](/images/bot-1.jpg)
+![Bot Empty Places](/images/bot-2.jpg)
+![Bot Add to Favorite](/images/bot-3.jpg)
+![Bot Error Place name](/images/bot-4.jpg)
+![Bot Select Place](/images/bot-5.jpg)
+![Bot Rename, Delete place](/images/bot-6.jpg)
+
 ## 🔧 Setup project
 
 1. Create a virtual environment and activate it
